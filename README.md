@@ -75,7 +75,7 @@ Server runs on:
 
 ---
 
-## Testing
+## Local Testing
 
 ### Using `curl`
 
@@ -197,7 +197,6 @@ curl -X POST http://localhost:5000/meter/confirm/ -H "Content-Type: text/xml" --
   </soap:Body>
 </soap:Envelope>
 ```
-
 ---
 
 ### Using Python Test Script
@@ -207,6 +206,31 @@ python tests/test_cases.py
 ```
 
 Runs all defined cases and prints responses to console.
+
+---
+
+## Live Testing
+
+### Using `curl`
+
+---
+
+#### ✅ Success – `msno=01234567890`
+```bash
+curl -X POST https://soap-meter-server.onrender.com/meter/confirm/ -H "Content-Type: text/xml" --data-binary @tests/payloads/success.xml
+```
+#### ❌ Fault – `msno=01234567891`
+```bash
+curl -X POST https://soap-meter-server.onrender.com/meter/confirm/ -H "Content-Type: text/xml" --data-binary @tests/payloads/fault.xml
+```
+#### ⚠️ Not Found – `msno=01234567892`
+```bash
+curl -X POST https://soap-meter-server.onrender.com/meter/confirm/ -H "Content-Type: text/xml" --data-binary @tests/payloads/not_found.xml
+```
+#### 🚫 Invalid Format – `msno=123`
+```bash
+curl -X POST https://soap-meter-server.onrender.com/meter/confirm/ -H "Content-Type: text/xml" --data-binary @tests/payloads/invalid.xml
+```
 
 ---
 
